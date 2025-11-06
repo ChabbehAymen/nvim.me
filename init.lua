@@ -688,7 +688,20 @@ require('lazy').setup({
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
-        phpactor = {},
+        -- NOTE:  run this commands to improve phpactor indexing.
+        --
+        -- phpactor config:generate
+        -- phpactor class:map:generate
+        -- config:generate → creates phpactor.json in your project
+        -- class:map:generate → indexes your classes for faster navigation and refactoring
+        phpactor = {
+          settings = {
+            ['phpactor.laravel'] = {
+              enable = true,
+              projectRootFiles = { 'artisan', 'composer.json' },
+            },
+          },
+        },
         intelephense = {},
         -- clangd = {},
         -- gopls = {},
